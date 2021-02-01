@@ -15,11 +15,13 @@ const styles = {
 
 export default function AppBar() {
   const isLogIn = useSelector(authSelectors.getIsLogIn);
+  const isRefreshing = useSelector(authSelectors.getIsRefreshing);
 
   return (
     <header style={styles.header}>
       <Navigation />
-      {isLogIn ? <UserMenu /> : <AuthNav />}
+
+      {isLogIn && !isRefreshing ? <UserMenu /> : <AuthNav />}
     </header>
   );
 }
