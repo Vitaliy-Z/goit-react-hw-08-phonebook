@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { contactsOperations } from '../../redux/contacts';
-
-import styles from './contactEditor.module.css';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 export default function ContactEditor({ onSave, idForUpdate }) {
   const [name, setName] = useState('');
@@ -34,69 +34,36 @@ export default function ContactEditor({ onSave, idForUpdate }) {
   };
 
   return (
-    <form className={styles.editor} onSubmit={handleSubmit} autoComplete="off">
-      <label className="label">
-        Name
-        <input
-          // className="input inputName"
-          name="name"
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="formBasicName" autoComplete="off">
+        <Form.Label>Name</Form.Label>
+        <Form.Control
           type="text"
+          placeholder="Enter new name"
+          name="name"
           value={name}
           onChange={handleChange}
+          autoComplete="off"
         />
-      </label>
-      <label className="label">
-        Number
-        <input
-          // className="input"
-          name="number"
+        <Form.Text className="text-muted">
+          Please enter the new name of this contact
+        </Form.Text>
+      </Form.Group>
+
+      <Form.Group controlId="formBasicNumber" autoComplete="off">
+        <Form.Label>Telephone number</Form.Label>
+        <Form.Control
           type="number"
+          placeholder="Enter telephone number of new contact "
+          name="number"
           value={number}
           onChange={handleChange}
+          autoComplete="off"
         />
-      </label>
-
-      <button className="btnAdd" type="submit">
+      </Form.Group>
+      <Button variant="success" size="lg" type="submit">
         Update contact
-      </button>
-    </form>
+      </Button>
+    </Form>
   );
 }
-
-// class TodoEditor extends Component {
-//   state = {
-//     message: '',
-//   };
-
-//   handleChange = e => {
-//     this.setState({ message: e.currentTarget.value });
-//   };
-
-//   handleSubmit = e => {
-//     e.preventDefault();
-
-//     if (this.state.message !== '') {
-//       this.props.onSubmit(this.state.message);
-//       this.props.onSave();
-//       this.setState({ message: '' });
-//       return;
-//     }
-
-//     alert('Заполни текст заметки.');
-//   };
-
-//   render() {
-//     return (
-//       <form className={styles.editor} onSubmit={this.handleSubmit}>
-//         <textarea
-//           className={styles.textarea}
-//           value={this.state.message}
-//           onChange={this.handleChange}
-//         ></textarea>
-//         <button type="submit" className={styles.button}>
-//           Сохранить
-//         </button>
-//       </form>
-//     );
-//   }
-// }

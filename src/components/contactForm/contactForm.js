@@ -1,12 +1,20 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { contactsOperations, contactsSelectors } from '../../redux/contacts';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
-const styles = {
-  form: {
-    display: 'inline-block',
-    padding: 12,
-    fontWeight: 700,
+const style = {
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '20px',
+    border: '2px solid #39c4ef',
+  },
+  title: {
+    fontWeight: 500,
+    fontSize: 48,
+    textAlign: 'center',
   },
 };
 
@@ -32,43 +40,49 @@ function ContactForm() {
 
     name === '' || number === ''
       ? alert('PLEASE, ENTER NAME OR TELEPHONE NUMBER')
-      : allContacts.find(
-          contact => contact.name.toLowerCase() === name.toLowerCase(),
-        )
-      ? alert(name + ' is already in contacts')
-      : dispatch(contactsOperations.addContact({ name, number }));
+      : allContacts.find(contact =>
+          contact.name.toLowerCase() === name.toLowerCase()
+            ? alert(name + ' is already in contacts')
+            : dispatch(contactsOperations.addContact({ name, number })),
+        );
 
     setName('');
     setNumber('');
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit} autoComplete="off">
-      <label className="label">
-        Name
-        <input
-          // className="input inputName"
-          name="name"
+    <Form onSubmit={handleSubmit} style={style.container}>
+      <Form.Group controlId="formBasicName">
+        <Form.Label>Name</Form.Label>
+        <Form.Control
           type="text"
+          placeholder="Enter name of new contact"
+          name="name"
           value={name}
           onChange={handleChange}
+          autoComplete="off"
         />
-      </label>
-      <label className="label">
-        Number
-        <input
-          // className="input"
-          name="number"
+        <Form.Text className="text-muted">
+          Please enter the name of which is not in your phone book
+        </Form.Text>
+      </Form.Group>
+
+      <Form.Group controlId="formBasicNumber" autoComplete="off">
+        <Form.Label>Telephone number</Form.Label>
+        <Form.Control
           type="number"
+          placeholder="Enter telephone number of new contact "
+          name="number"
           value={number}
           onChange={handleChange}
+          autoComplete="off"
         />
-      </label>
+      </Form.Group>
 
-      <button className="btnAdd" type="submit">
+      <Button variant="primary" size="lg" type="submit">
         Add contact
-      </button>
-    </form>
+      </Button>
+    </Form>
   );
 }
 

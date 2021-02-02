@@ -45,7 +45,7 @@ const updateContact = createAsyncThunk(
     try {
       const id = idForUpdate;
       const { data } = await axios.patch(`/contacts/${id}`, credentials);
-      return { id, data };
+      return data;
     } catch (error) {
       return rejectWithValue(error);
     }

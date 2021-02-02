@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import ContactForm from '../components/contactForm/contactForm';
 import ContactList from '../components/contactList/contactList';
-import Modal from '../components/modal/modal';
+
+import ModalEdition from '../components/modal/modal';
 import ContactEditor from '../components/contactEditor/contactEditor';
 
 const styles = {
   container: {
     minHeight: 'calc(100vh - 50px)',
-    padding: '10px',
+    padding: '20px',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -24,27 +25,24 @@ export default function ContactsView() {
 
   const toggleModal = () => setIsModalOpen(state => !state);
 
-  // const getId = contactId => {
-  //   setIdForUpdate(contactId);
-  // };
-
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>
         This is PHONEBOOK PAGE{' '}
-        <span role="img" aria-label="Иконка приветствия">
+        <span role="img" aria-label="Hello">
           💁‍♀️
         </span>
       </h1>
-      <h1 className="title">phonebook</h1>
-      <ContactForm />
+      <br />
 
-      <h2 className="title-contacts">contacts</h2>
+      <ContactForm />
+      <br />
+
       <ContactList openModal={toggleModal} getId={setIdForUpdate} />
       {isModalOpen && (
-        <Modal onClose={toggleModal}>
+        <ModalEdition showModal={isModalOpen} onClose={toggleModal}>
           <ContactEditor onSave={toggleModal} idForUpdate={idForUpdate} />
-        </Modal>
+        </ModalEdition>
       )}
     </div>
   );

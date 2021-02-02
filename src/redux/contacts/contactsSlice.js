@@ -41,15 +41,16 @@ const contactsSlice = createSlice({
     [contactsOperations.updateContact.pending](state) {
       state.isLoading = !initialState.isLoading;
     },
-    [contactsOperations.updateContact.fulfilled](state, { id, data }) {
-      const changeContact = (contact, newId, newContact) => {
-        if (contact.id === newId) {
+    [contactsOperations.updateContact.fulfilled](state, action) {
+      const changeContact = (contact, newContact) => {
+        if (contact.id === newContact.id) {
           return newContact;
         }
         return contact;
       };
+
       const newAllContacts = state.allContacts.map(contact =>
-        changeContact(contact, id, data),
+        changeContact(contact, action.payload),
       );
 
       state.allContacts = newAllContacts;

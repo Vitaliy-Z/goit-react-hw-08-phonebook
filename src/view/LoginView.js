@@ -1,17 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { authOperations } from '../redux/auth';
-
-const styles = {
-  form: {
-    width: 320,
-  },
-  label: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: 15,
-  },
-};
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 export default function LoginView() {
   const dispatch = useDispatch();
@@ -39,30 +30,37 @@ export default function LoginView() {
   return (
     <div>
       <h1>Sing IN</h1>
-
-      <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
-        <label style={styles.label}>
-          Enter your email
-          <input
+      <br />
+      <Form onSubmit={handleSubmit} autoComplete="off">
+        <Form.Group controlId="formBasicEmail" autoComplete="off">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
             type="email"
             name="email"
             value={email}
             onChange={handleChange}
+            placeholder="Enter email"
           />
-        </label>
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
 
-        <label style={styles.label}>
-          Enter your password
-          <input
+        <Form.Group controlId="formBasicPassword" autoComplete="off">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type="password"
             name="password"
             value={password}
             onChange={handleChange}
+            placeholder="Password"
           />
-        </label>
+        </Form.Group>
 
-        <button type="submit">LOG IN</button>
-      </form>
+        <Button variant="success" size="lg" type="submit">
+          LOG IN
+        </Button>
+      </Form>
     </div>
   );
 }

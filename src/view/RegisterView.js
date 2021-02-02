@@ -1,17 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { authOperations } from '../redux/auth';
-
-const styles = {
-  form: {
-    width: 320,
-  },
-  label: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: 15,
-  },
-};
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 export default function RegisterView() {
   const dispatch = useDispatch();
@@ -42,36 +33,55 @@ export default function RegisterView() {
 
   return (
     <div>
-      <h1>Страница регистрации</h1>
+      <h1>Registration</h1>
+      <br />
 
-      <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
-        <label style={styles.label}>
-          Имя
-          <input type="text" name="name" value={name} onChange={handleChange} />
-        </label>
+      <Form onSubmit={handleSubmit} autoComplete="off">
+        <Form.Group controlId="formBasicName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter name"
+            name="name"
+            value={name}
+            onChange={handleChange}
+            autoComplete="off"
+          />
+        </Form.Group>
 
-        <label style={styles.label}>
-          Почта
-          <input
+        <Form.Group controlId="formBasicEmail" autoComplete="off">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
             type="email"
             name="email"
             value={email}
             onChange={handleChange}
+            placeholder="Enter email"
+            autoComplete="off"
           />
-        </label>
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
 
-        <label style={styles.label}>
-          Пароль
-          <input
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type="password"
             name="password"
             value={password}
             onChange={handleChange}
+            placeholder="Password"
+            autoComplete="off"
           />
-        </label>
-
-        <button type="submit">Зарегистрироваться</button>
-      </form>
+        </Form.Group>
+        <Form.Group controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" label="Check me out" />
+        </Form.Group>
+        <Button variant="success" size="lg" type="submit">
+          Register now
+        </Button>
+      </Form>
     </div>
   );
 }

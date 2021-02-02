@@ -4,7 +4,8 @@ import { Switch } from 'react-router-dom';
 import { authOperations, authSelectors } from './redux/auth';
 import { PrivateRoute, PublicRoute } from './customRouts';
 import AppBar from './components/header/AppBar';
-import './Phonebook.css';
+import Container from 'react-bootstrap/Container';
+import Spinner from 'react-bootstrap/Spinner';
 
 const HomeView = lazy(() => import('./view/HomeView'));
 const LoginView = lazy(() => import('./view/LoginView'));
@@ -14,18 +15,21 @@ const ContactsView = lazy(() => import('./view/ContactsView'));
 function App() {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(authSelectors.getIsRefreshing);
-  console.log(isRefreshing);
 
   useEffect(() => {
     dispatch(authOperations.refreshCurrentUser());
   }, [dispatch]);
 
   return (
-    <>
+    <Container>
       <AppBar />
       {!isRefreshing && (
         <Switch>
-          <Suspense fallback={<h1>Загружаем...</h1>}>
+          <Suspense
+            fallback={
+              <Spinner animation="border" variant="primary" role="status" />
+            }
+          >
             <PublicRoute exact path="/">
               <HomeView />
             </PublicRoute>
@@ -41,7 +45,7 @@ function App() {
           </Suspense>
         </Switch>
       )}
-    </>
+    </Container>
   );
 }
 
