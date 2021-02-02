@@ -10,12 +10,12 @@ const style = {
   contactItem: {
     display: 'flex',
     alignItems: 'baseline',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     margin: '5px',
     borderRadius: '10px',
   },
   button: {
-    marginLeft: '10px',
+    margin: '10px',
   },
   text: {
     fontSize: '20px',
@@ -78,6 +78,7 @@ function ContactList({ openModal, getId }) {
               </span>
               <span>
                 <Button
+                  style={style.button}
                   variant="outline-primary"
                   type="button"
                   onClick={() => {
@@ -88,8 +89,8 @@ function ContactList({ openModal, getId }) {
                   Update
                 </Button>
                 <Button
-                  variant="outline-primary"
                   style={style.button}
+                  variant="outline-primary"
                   type="button"
                   onClick={() => {
                     dispatch(contactsOperations.deleteContact(item.id));

@@ -7,10 +7,18 @@ import AppBar from './components/header/AppBar';
 import Container from 'react-bootstrap/Container';
 import Spinner from 'react-bootstrap/Spinner';
 
-const HomeView = lazy(() => import('./view/HomeView'));
-const LoginView = lazy(() => import('./view/LoginView'));
-const RegisterView = lazy(() => import('./view/RegisterView'));
-const ContactsView = lazy(() => import('./view/ContactsView'));
+const HomeView = lazy(() =>
+  import('./view/HomeView' /*webpackChunkName: "home-view"*/),
+);
+const LoginView = lazy(() =>
+  import('./view/LoginView' /*webpackChunkName: "login-view"*/),
+);
+const RegisterView = lazy(() =>
+  import('./view/RegisterView' /*webpackChunkName: "register-view"*/),
+);
+const ContactsView = lazy(() =>
+  import('./view/ContactsView' /*webpackChunkName: "contacts-view"*/),
+);
 
 function App() {
   const dispatch = useDispatch();
